@@ -9,19 +9,23 @@ namespace FSM_Practice
 
     class FinistateStatMachine
     {
-        Enum from;
-        class Transition
+        
+        public class Transition 
         {
+            public Enum from, to;
             public Transition(Enum _from, Enum _to)
             {
-
+                from = _from;
+                to = _to;
                 
             }
         }
-        Enum currentStats;
+        
+        public Enum currentStates;
+        public Dictionary<Enum, List<Transition>> transitionTable;
+        List<Enum> States;
 
-        List<Enum> stats;
-        List<Enum> validTrans;
+        //List<Enum> validTrans;
 
         /// <summary>
         /// Constructer for the FSM
@@ -30,16 +34,18 @@ namespace FSM_Practice
         /// <param FininitStateMachine ="_initial"> Takes  in the first stat </para>
         public FinistateStatMachine(Enum _initial) 
         {
-            stats = new List<Enum>();
-            validTrans = new List<Enum>();
-            currentStats = _initial;
+            States = new List<Enum>();
+            //validTrans = new List<Enum>();
+            transitionTable = new Dictionary<Enum, List<Transition>>();
+            currentStates = _initial;
         }
         public bool AddStat(Enum _stat)
         {
             // Makes sure that there is a stat before adding another transition
-            if (!stats.Contains(_stat)) // List<>.Contains ~ Lets me know if the elements in the list(returning a bool)
+            if (!States.Contains(_stat)) // List<>.Contains ~ Lets me know if the elements in the list(returning a bool)
             {
-                stats.Add(_stat);
+                States.Add(_stat);
+                
                 return true;
             }
             else
@@ -52,51 +58,70 @@ namespace FSM_Practice
         public void StatInfo()
         {
             Console.WriteLine("Finite Stat Machine is comprised of...");
-            int count = 0; // Records the ammount of stats that have been added the List<Enum>
-            foreach (Enum s in stats)
+            int count = 0; // Records the ammount of States that have been added the List<Enum>
+            foreach (Enum s in States)
             {
                 Console.WriteLine("Stat " + count.ToString() + ": " + s.ToString());
                 ++count;
             }
-            Console.WriteLine("Current Stat(s) is: " + currentStats.ToString());
+            Console.WriteLine("Current Stat(s) is: " + currentStates.ToString());
         }
 
-        // Dictionary<(Key),(Whats to be sent through to be compared)>
-        Dictionary<Enum, List<Transition>> transitionTable; 
+        // Dictionary<(Key),(Whats to be sent through to be compared)>; 
 
-        public bool AddTransiton(Enum _from, Enum _to)
+        public void AddTransiton(Enum _from, Enum _to)
         {
             Transition t = new Transition(_from, _to);
-            if (transitionTable[_from].Contains(t))
+            if (transitionTable.ContainsKey(_from))
             {
-                //transitionTable.Add(to, );
+                transitionTable[_from].Add(t);
+
             }
-            return true;
         }
 
+        public void TransitionsFromStates(Enum _tran)
+        {
+            
+                foreach(Transition t in transitionTable[currentStates])
+                {
+                    _tran.GetHashCode();
+                    Console.WriteLine(t.from);
+                }
+                
+            
+        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="args"></param>
 
-        class Program
+        class MyMain
         {
             // enumates the player states
-            enum PlayerStats { init, idle, walk, run} 
+            enum PlayerStates { init, idle, walk, run} 
 
             static void Main(string[] args)
             {
 
-                Transition StandStill = new Transition(PlayerStats.idle, PlayerStats.idle);
                 // Creates a a FinitSra
-                FinistateStatMachine fsm = new FinistateStatMachine(PlayerStats.idle);
+                FinistateStatMachine fsm = new FinistateStatMachine(PlayerStates.idle);
 
-                fsm.AddStat(PlayerStats.init);
-                fsm.AddStat(PlayerStats.idle);
-                fsm.AddStat(PlayerStats.walk);
-                fsm.AddStat(PlayerStats.run);
-                fsm.AddStat(PlayerStats.init);
+                fsm.AddStat(PlayerStates.init);
+                fsm.AddStat(PlayerStates.idle);
+                fsm.AddStat(PlayerStates.walk);
+                fsm.AddStat(PlayerStates.run);
                 
+
+                
+                fsm.AddTransiton(PlayerStates.init,PlayerStates.idle);
+                fsm.AddTransiton(PlayerStates.idle, PlayerStates.walk);
+                fsm.AddTransiton(PlayerStates.walk, PlayerStates.run);
+                fsm.AddTransiton(PlayerStates.run, PlayerStates.walk);
+                fsm.AddTransiton(PlayerStates.run, PlayerStates.idle);
+
+                //Console.Write(fsm.transitionTable[PlayerStates.init]);
+
+                fsm.TransitionsFromStates(PlayerStates.idle);
 
 
 
