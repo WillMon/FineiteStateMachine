@@ -39,10 +39,10 @@ namespace FSM_Practice
             _transtionTable = new Dictionary<Enum, List<Transition>>();
             _currentStates = intial;
         }
+
         /// <summary>
         /// 
         /// </summary>
-
         public bool AddStat(Enum state)
         {
             
