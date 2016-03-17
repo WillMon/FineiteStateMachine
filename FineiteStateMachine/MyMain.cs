@@ -9,19 +9,18 @@ namespace FSM_Practice
     class MyMain
     {
         // enumates the player states
-        enum PlayerStates { init, idle, walk, run, att }
+        enum PlayerStates { init, idle, walk, run, att, picon }
 
         static void Main(string[] args)
         {
 
             // Creates a a FinitSra
-            FinistateStatMachine fsm = new FinistateStatMachine(PlayerStates.att);
+            FinistateStatMachine fsm = new FinistateStatMachine(PlayerStates.run);
 
             fsm.AddStat(PlayerStates.init);
             fsm.AddStat(PlayerStates.idle);
             fsm.AddStat(PlayerStates.walk);
             fsm.AddStat(PlayerStates.run);
-            fsm.AddStat(PlayerStates.att);
 
 
 
@@ -31,7 +30,7 @@ namespace FSM_Practice
             fsm.AddTransiton(PlayerStates.run, PlayerStates.walk);
             fsm.AddTransiton(PlayerStates.run, PlayerStates.idle);
             fsm.AddTransiton(PlayerStates.walk, PlayerStates.idle);
-            
+
 
             //Console.Write(fsm.transitionTable[PlayerStates.init]);
 
@@ -39,7 +38,7 @@ namespace FSM_Practice
             fsm.StatInfo();
 
 
-            fsm.TransitionsFromStates(PlayerStates.run);
+            fsm.TransitionsFromStates();
             
             Console.ReadKey();
 

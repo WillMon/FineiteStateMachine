@@ -29,8 +29,8 @@ namespace FSM_Practice
 
         /// <summary>
         /// Constructer for the FSM
-        /// Takes in the first Enum 
-        /// </summary>
+        /// </summary>  
+        ///       /// Takes in the first Enum 
         /// <param FininitStateMachine ="intial"> Takes  in the first stat </para>
         public FinistateStatMachine(Enum intial)
         {
@@ -39,25 +39,30 @@ namespace FSM_Practice
             _transtionTable = new Dictionary<Enum, List<Transition>>();
             _currentStates = intial;
         }
-        public bool AddStat(Enum state)
-        {
-            // Makes sure that there is a stat before adding another transition
-            if (!m_States.Contains(state)) // List<>.Contains ~ Lets me know if the elements in the list(returning a bool)
-            {
-                m_States.Add(state);
-                _transtionTable.Add(state, new List<Transition>());
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Cant do that");
-                return false;
-            }
-        }
         /// <summary>
-        /// Informs use of what stat there transtioned at 
+        /// 
         /// </summary>
 
+        public bool AddStat(Enum state)
+        {
+            
+            if (!m_States.Contains(state)) { // List<>.Contains ~ Lets me know if the elements in the list(returning a bool)
+                m_States.Add(state);
+                _transtionTable.Add(state, new List<Transition>());
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        /// <summary>
+        ///  Prints States Stat To console
+        /// </summary>
+        /// <StatesInfor()>
+        /// Prints out the listed sort of Enums and its enumaration 
+        /// Prints out the conditions of the transitions 
+        /// </StatesInfor>
         public void StatInfo()
         {
             Console.WriteLine("Finite Stat Machine is comprised of...");
@@ -72,69 +77,106 @@ namespace FSM_Practice
 
         }
 
-        // Dictionary<(Key),(Whats to be sent through to be compared)>; 
-
-        public void AddTransiton(Enum from, Enum to)
+        /// <summary>
+        /// Qeues in the set of transitions
+        /// </summary>
+        /// <AddTransition(Enum from, Enum to)>
+        /// AddTRansition takes in two arguments 
+        /// thsi 
+        /// </AddTransition>
+        public bool AddTransiton(Enum from, Enum to)
         {
 
             Transition _t = new Transition(from, to);
 
             if (_transtionTable.ContainsKey(from))
             {
-                _transtionTable[from].Add(_t);
+                _transtionTable[_currentStates].Add(_t);
+                return true;
             }
+            return false;
         }
-        /// <summary>
+
+        /// <summary> 
+        /// Makes the Transion from the queued states
+        /// </summary>
+        /// <TranstitionFromStates(Enum trans)>
         /// This Sets  my States and makes sure of there possibale transitions 
+        /// TrnsitonFromStates takes in one argument 
+        /// A new Tempuary Transition<Object>(temp_Trans) is created 
+        /// 
+        /// A new Tempuary Dictanery<Enum,List<Transition<Object>>(temp_Dictionary) is created 
         /// Creats a Temporary Dictionary<Enum, List<TRanstion>>
         /// 
-        /// </summary>
-        public void TransitionsFromStates(Enum trans)
+        /// if _currentStates value returns a (0) there at there init state
+        /// transtion from that enumarate value can transiton to the next state. 
+        /// no transtions can happen over that value or transition to that same value 
+        /// 
+        /// if _currentStates enumarte value retuns a (1) there at the next state 
+        /// From this state the user can transition to thhe next transition 
+        /// They can not transition over from that state or revert over to the init stat
+        /// 
+        /// if _currentStates value returns any other value pass the _currentState value of (1) 
+        /// Transition to and fom that state can happen 
+        /// Transitions form that state to the _currnetState (0) can not happen 
+        /// </TranstitionFromStates>
+        public void TransitionsFromStates()
         {
-            Transition temp_Trans = new Transition(_currentStates, trans);
-            Dictionary<Enum, List<Transition>> temp_Dictionary = new Dictionary<Enum, List<Transition>>();
-            //foreach (Enum e in m_States)
-            //{
 
-            switch (_currentStates.GetHashCode())
+
+            foreach (Enum e in _transtionTable.Keys)
             {
-                case 0:
-                    if (trans.GetHashCode() > 1 || trans.GetHashCode() == _currentStates.GetHashCode())
-                        Console.WriteLine(_currentStates + " can not make this transition to " + trans);
-                    else
+                Transition temp_Trans = new Transition(_currentStates, e);
+                if (AddTransiton(_currentStates, e))
+                {
+                    if (AddStat(e))
                     {
-                        Console.WriteLine(_currentStates + " -> " + trans);
-                        //temp_Dictionary[e].Add(temp_Trans);
-                        _currentStates = trans;
-                    }
-                    break;
+                        switch (_currentStates.GetHashCode())
+                        {
+                            case 0:
+                                if (e.GetHashCode() > 1 || e.GetHashCode() == _currentStates.GetHashCode())
+                                    Console.WriteLine(_currentStates + " can not make this transition to " + e);
+                                else
+                                {
+                                    Console.WriteLine(_currentStates + " -> " + e);
+                                    _transtionTable[_currentStates].Add(temp_Trans);
+                                    _currentStates = e;
+                                }
+                                break;
 
-                case 1:
-                    if (trans.GetHashCode() <= 0 || (1 + _currentStates.GetHashCode()) < trans.GetHashCode() || trans.GetHashCode() == _currentStates.GetHashCode())
-                        Console.WriteLine(_currentStates + " can not make this transtion to " + trans);
-                    else
-                    {
-                        Console.WriteLine(_currentStates + " -> " + trans);
-                        //temp_Dictionary[e].Add(temp_Trans);
-                        _currentStates = trans;
+                            case 1:
+                                if (e.GetHashCode() <= 0 || (1 + _currentStates.GetHashCode()) < e.GetHashCode() 
+                                    || e.GetHashCode() == _currentStates.GetHashCode())
+                                    Console.WriteLine(_currentStates + " can not make this transtion to " + e);
+                                else
+                                {
+                                    Console.WriteLine(_currentStates + " -> " + e);
+                                    _transtionTable[e].Add(temp_Trans);
+                                    _currentStates = e;
+                                }
+                                break;
+                            default:
+                                if (e.GetHashCode() <= 0 || e.GetHashCode() == _currentStates.GetHashCode())
+                                    Console.WriteLine(_currentStates + " can not make this transtion to " + e);
+                                else
+                                {
+                                    Console.WriteLine(_currentStates + " -> " + e);
+                                    _transtionTable[e].Add(temp_Trans);
+                                    _currentStates = e;
+                                }
+                                break;
+                                
+                        }
+                        
                     }
-                    break;
-                default:
-                    if (trans.GetHashCode() <= 0)
-                        Console.WriteLine(_currentStates + " can not make this transtion to " + trans);
-                    else
-                    {
-                        Console.WriteLine(_currentStates + " -> " + trans);
-                        //temp_Dictionary[e].Add(temp_Trans);
-                        _currentStates = trans;
-                    }
-                    break;
+                   
+                    else { Console.WriteLine("Cant transition to a none exiatent state "); break; }
+                }
+                else { Console.WriteLine("No States have been added "); break; }
             }
         }
     }
 }       
-                
-             
                 //Console.WriteLine(_transtionTable[e].GetEnumerator());
             
        

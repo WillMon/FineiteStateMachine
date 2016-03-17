@@ -1,0 +1,6 @@
+C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\bin\Debug\FineiteStateMachine.exe.config
+C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\bin\Debug\FineiteStateMachine.exe
+C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\bin\Debug\FineiteStateMachine.pdb
+C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\obj\Debug\FF(Behind the Script).csprojResolveAssemblyReference.cache
+C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.exe
+C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.pdb
