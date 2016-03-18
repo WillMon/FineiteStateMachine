@@ -38,7 +38,8 @@ namespace FSM_Practice
             fsm.StatInfo();
 
 
-            fsm.TransitionsFromStates();
+            fsm.ChangeState(PlayerStates.run);
+
             
             Console.ReadKey();
 
