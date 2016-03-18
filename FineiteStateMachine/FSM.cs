@@ -21,7 +21,7 @@ namespace FSM_Practice
             }
         }
 
-        public Enum _currentStates;
+        Enum _currentState;
         public Dictionary<Enum, List<Transition>> _transtionTable;
         List<Enum> m_States;
 
@@ -37,7 +37,7 @@ namespace FSM_Practice
             m_States = new List<Enum>();
             //validTrans = new List<Enum>();
             _transtionTable = new Dictionary<Enum, List<Transition>>();
-            _currentStates = intial;
+            _currentState = intial;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace FSM_Practice
                 ++count;
 
             }
-            Console.WriteLine("Current Stat(s) is: " + _currentStates.ToString());
+            Console.WriteLine("Current Stat(s) is: " + _currentState.ToString());
 
         }
 
@@ -91,7 +91,7 @@ namespace FSM_Practice
 
             if (_transtionTable.ContainsKey(from))
             {
-                _transtionTable[_currentStates].Add(_t);
+                _transtionTable[_currentState].Add(_t);
                 return true;
             }
             return false;
@@ -108,15 +108,15 @@ namespace FSM_Practice
         /// A new Tempuary Dictanery<Enum,List<Transition<Object>>(temp_Dictionary) is created 
         /// Creats a Temporary Dictionary<Enum, List<TRanstion>>
         /// 
-        /// if _currentStates value returns a (0) there at there init state
+        /// if currentState value returns a (0) there at there init state
         /// transtion from that enumarate value can transiton to the next state. 
         /// no transtions can happen over that value or transition to that same value 
         /// 
-        /// if _currentStates enumarte value retuns a (1) there at the next state 
+        /// if currentState enumarte value retuns a (1) there at the next state 
         /// From this state the user can transition to thhe next transition 
         /// They can not transition over from that state or revert over to the init stat
         /// 
-        /// if _currentStates value returns any other value pass the _currentState value of (1) 
+        /// if currentState value returns any other value pass the _currentState value of (1) 
         /// Transition to and fom that state can happen 
         /// Transitions form that state to the _currnetState (0) can not happen 
         /// </TranstitionFromStates>
@@ -126,43 +126,43 @@ namespace FSM_Practice
 
             foreach (Enum e in _transtionTable.Keys)
             {
-                Transition temp_Trans = new Transition(_currentStates, e);
-                if (AddTransiton(_currentStates, e))
+                Transition temp_Trans = new Transition(_currentState, e);
+                if (AddTransiton(_currentState, e))
                 {
                     if (AddStat(e))
                     {
-                        switch (_currentStates.GetHashCode())
+                        switch (_currentState.GetHashCode())
                         {
                             case 0:
-                                if (e.GetHashCode() > 1 || e.GetHashCode() == _currentStates.GetHashCode())
-                                    Console.WriteLine(_currentStates + " can not make this transition to " + e);
+                                if (e.GetHashCode() > 1 || e.GetHashCode() == _currentState.GetHashCode())
+                                    Console.WriteLine(_currentState + " can not make this transition to " + e);
                                 else
                                 {
-                                    Console.WriteLine(_currentStates + " -> " + e);
-                                    _transtionTable[_currentStates].Add(temp_Trans);
-                                    _currentStates = e;
+                                    Console.WriteLine(_currentState + " -> " + e);
+                                    _transtionTable[_currentState].Add(temp_Trans);
+                                    _currentState = e;
                                 }
                                 break;
 
                             case 1:
-                                if (e.GetHashCode() <= 0 || (1 + _currentStates.GetHashCode()) < e.GetHashCode() 
-                                    || e.GetHashCode() == _currentStates.GetHashCode())
-                                    Console.WriteLine(_currentStates + " can not make this transtion to " + e);
+                                if (e.GetHashCode() <= 0 || (1 + _currentState.GetHashCode()) < e.GetHashCode() 
+                                    || e.GetHashCode() == _currentState.GetHashCode())
+                                    Console.WriteLine(_currentState + " can not make this transtion to " + e);
                                 else
                                 {
-                                    Console.WriteLine(_currentStates + " -> " + e);
+                                    Console.WriteLine(_currentState + " -> " + e);
                                     _transtionTable[e].Add(temp_Trans);
-                                    _currentStates = e;
+                                    _currentState = e;
                                 }
                                 break;
                             default:
-                                if (e.GetHashCode() <= 0 || e.GetHashCode() == _currentStates.GetHashCode())
-                                    Console.WriteLine(_currentStates + " can not make this transtion to " + e);
+                                if (e.GetHashCode() <= 0 || e.GetHashCode() == _currentState.GetHashCode())
+                                    Console.WriteLine(_currentState + " can not make this transtion to " + e);
                                 else
                                 {
-                                    Console.WriteLine(_currentStates + " -> " + e);
+                                    Console.WriteLine(_currentState + " -> " + e);
                                     _transtionTable[e].Add(temp_Trans);
-                                    _currentStates = e;
+                                    _currentState = e;
                                 }
                                 break;
                                 
@@ -175,8 +175,23 @@ namespace FSM_Practice
                 else { Console.WriteLine("No States have been added "); break; }
             }
         }
+
+        /// <summary>
+        /// you do not care about changestate("notthecurrentstate")
+        /// </summary>
+        /// <param name="To"></param>
+        public void ChangeState(Enum To)
+        {
+            List<Transition> validTransitions = _transtionTable[_currentState];
+            foreach (Transition t in validTransitions)
+            {
+                //if To is the name of where you want to go
+                if(To == t._to)
+                    _currentState = t._to;
+            }
+
+        }
     }
 }       
-                //Console.WriteLine(_transtionTable[e].GetEnumerator());
             
        
