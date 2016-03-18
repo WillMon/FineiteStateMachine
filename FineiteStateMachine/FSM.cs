@@ -21,8 +21,8 @@ namespace FSM_Practice
             }
         }
 
-        Enum _currentState;
-        public Dictionary<Enum, List<Transition>> _transtionTable;
+        Enum m_currentState;
+        Dictionary<Enum, List<Transition>> m_transtionTable;
         List<Enum> m_States;
 
         //List<Enum> validTrans;
@@ -36,8 +36,8 @@ namespace FSM_Practice
         {
             m_States = new List<Enum>();
             //validTrans = new List<Enum>();
-            _transtionTable = new Dictionary<Enum, List<Transition>>();
-            _currentState = intial;
+            m_transtionTable = new Dictionary<Enum, List<Transition>>();
+            m_currentState = intial;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace FSM_Practice
             
             if (!m_States.Contains(state)) { // List<>.Contains ~ Lets me know if the elements in the list(returning a bool)
                 m_States.Add(state);
-                _transtionTable.Add(state, new List<Transition>());
+                m_transtionTable.Add(state, new List<Transition>());
                 return false;
             }
             else {
@@ -73,7 +73,7 @@ namespace FSM_Practice
                 ++count;
 
             }
-            Console.WriteLine("Current Stat(s) is: " + _currentState.ToString());
+            Console.WriteLine("Current Stat(s) is: " + m_currentState.ToString());
 
         }
 
@@ -89,9 +89,9 @@ namespace FSM_Practice
 
             Transition _t = new Transition(from, to);
 
-            if (_transtionTable.ContainsKey(from))
+            if (m_transtionTable.ContainsKey(from))
             {
-                _transtionTable[_currentState].Add(_t);
+                m_transtionTable[m_currentState].Add(_t);
                 return true;
             }
             return false;
@@ -124,45 +124,45 @@ namespace FSM_Practice
         {
 
 
-            foreach (Enum e in _transtionTable.Keys)
+            foreach (Enum e in m_transtionTable.Keys)
             {
-                Transition temp_Trans = new Transition(_currentState, e);
-                if (AddTransiton(_currentState, e))
+                Transition temp_Trans = new Transition(m_currentState, e);
+                if (AddTransiton(m_currentState, e))
                 {
                     if (AddStat(e))
                     {
-                        switch (_currentState.GetHashCode())
+                        switch (m_currentState.GetHashCode())
                         {
                             case 0:
-                                if (e.GetHashCode() > 1 || e.GetHashCode() == _currentState.GetHashCode())
-                                    Console.WriteLine(_currentState + " can not make this transition to " + e);
+                                if (e.GetHashCode() > 1 || e.GetHashCode() == m_currentState.GetHashCode())
+                                    Console.WriteLine(m_currentState + " can not make this transition to " + e);
                                 else
                                 {
-                                    Console.WriteLine(_currentState + " -> " + e);
-                                    _transtionTable[_currentState].Add(temp_Trans);
-                                    _currentState = e;
+                                    Console.WriteLine(m_currentState + " -> " + e);
+                                    m_transtionTable[m_currentState].Add(temp_Trans);
+                                    m_currentState = e;
                                 }
                                 break;
 
                             case 1:
-                                if (e.GetHashCode() <= 0 || (1 + _currentState.GetHashCode()) < e.GetHashCode() 
-                                    || e.GetHashCode() == _currentState.GetHashCode())
-                                    Console.WriteLine(_currentState + " can not make this transtion to " + e);
+                                if (e.GetHashCode() <= 0 || (1 + m_currentState.GetHashCode()) < e.GetHashCode() 
+                                    || e.GetHashCode() == m_currentState.GetHashCode())
+                                    Console.WriteLine(m_currentState + " can not make this transtion to " + e);
                                 else
                                 {
-                                    Console.WriteLine(_currentState + " -> " + e);
-                                    _transtionTable[e].Add(temp_Trans);
-                                    _currentState = e;
+                                    Console.WriteLine(m_currentState + " -> " + e);
+                                    m_transtionTable[e].Add(temp_Trans);
+                                    m_currentState = e;
                                 }
                                 break;
                             default:
-                                if (e.GetHashCode() <= 0 || e.GetHashCode() == _currentState.GetHashCode())
-                                    Console.WriteLine(_currentState + " can not make this transtion to " + e);
+                                if (e.GetHashCode() <= 0 || e.GetHashCode() == m_currentState.GetHashCode())
+                                    Console.WriteLine(m_currentState + " can not make this transtion to " + e);
                                 else
                                 {
-                                    Console.WriteLine(_currentState + " -> " + e);
-                                    _transtionTable[e].Add(temp_Trans);
-                                    _currentState = e;
+                                    Console.WriteLine(m_currentState + " -> " + e);
+                                    m_transtionTable[e].Add(temp_Trans);
+                                    m_currentState = e;
                                 }
                                 break;
                                 
@@ -182,12 +182,12 @@ namespace FSM_Practice
         /// <param name="To"></param>
         public void ChangeState(Enum To)
         {
-            List<Transition> validTransitions = _transtionTable[_currentState];
+            List<Transition> validTransitions = m_transtionTable[m_currentState];
             foreach (Transition t in validTransitions)
             {
                 //if To is the name of where you want to go
                 if(To == t._to)
-                    _currentState = t._to;
+                    m_currentState = t._to;
             }
 
         }
