@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FSM_Practice
+namespace ADGP_130
 {
 
     class FinistateStatMachine

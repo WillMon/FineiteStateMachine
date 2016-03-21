@@ -52,6 +52,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LevelSystem.cs" />
     <Compile Include="MyMain.cs" />
     <Compile Include="FSM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,3 +4,12 @@ C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachi
 C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\obj\Debug\FF(Behind the Script).csprojResolveAssemblyReference.cache
 C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.exe
 C:\Users\william.montero\Documents\Visual Studio 2015\Projects\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.pdb
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\bin\Debug\FineiteStateMachine.exe.config
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.exe
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.pdb
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\bin\Debug\FineiteStateMachine.exe
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\bin\Debug\FineiteStateMachine.pdb
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\obj\Debug\FF(Behind the Script).csprojResolveAssemblyReference.cache
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.Form1.resources
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\obj\Debug\FineiteStateMachine.Properties.Resources.resources
+C:\Users\monte_000\Desktop\FineiteStateMachine\FineiteStateMachine\obj\Debug\FF(Behind the Script).csproj.GenerateResource.Cache

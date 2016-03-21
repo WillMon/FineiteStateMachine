@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
-namespace FSM_Practice
+
+namespace ADGP_130
 {
     class MyMain
     {
@@ -32,15 +34,14 @@ namespace FSM_Practice
             fsm.AddTransiton(PlayerStates.walk, PlayerStates.idle);
 
 
-            //Console.Write(fsm.transitionTable[PlayerStates.init]);
-
-
             fsm.StatInfo();
 
 
             fsm.ChangeState(PlayerStates.run);
 
-            
+            //var html = new System.Net.WebClient().DownloadString("");
+
+            //Console.WriteLine(html.ToString());
             Console.ReadKey();
 
 
